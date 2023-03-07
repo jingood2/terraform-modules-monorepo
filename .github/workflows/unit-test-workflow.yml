@@ -1,0 +1,58 @@
+name: Unit Test
+
+on:
+  workflow_call:
+    inputs:
+      # workding-directory is added to specify terraform module direcotry in project source
+      working-directory:
+        required: true
+        type: string
+        default: terraform/modules/s3-lifecycle
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        description: 'Specifies the AWS_CLIENT_ID.'
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        description: 'Specifies the AWS_SECRET_ACCESS_KEY.'
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Run Go Unit Test
+
+    #defaults:
+    #  run:
+    #    working-directory: ${{ inputs.working-directory }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.18.3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          # invalid character 'c' looking for beginning of value" issue when running on GitHub Action #779
+          terraform_wrapper: false
+          terraform_version: 1.3.7
+      #- uses: autero1/action-terraform@v0.1.0
+      #  with:
+      #    terraform_version: 0.12.21
+      - name: Download Go Modules
+        working-directory: ${{ inputs.working-directory }}/test
+        run: go mod init test
+
+      - name: go mod tidy
+        working-directory: ${{ inputs.working-directory }}/test
+      #  run: go test -v -tags=unit
+        run: go mod tidy
+
+      - name: Run Go Tests
+        working-directory: ${{ inputs.working-directory }}/test
+        run: go test -v -tags=unit
