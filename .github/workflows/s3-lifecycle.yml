@@ -20,6 +20,8 @@ jobs:
         with:
           path: terraform/modules/s3-lifecycle
   unit-test:
+    needs:
+      - validate
     uses: ./.github/workflows/unit-test-workflow.yml
     with:
       working-directory: terraform/modules/s3-lifecycle
