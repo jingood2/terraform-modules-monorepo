@@ -20,9 +20,9 @@ func TestS3LifecycleModule(t *testing.T) {
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../examples/s3-lifecycle",
 		Vars: map[string]interface{}{
-			"bucket_name": bucketName,
-			"prefix":      "logs/",
-			"days":        30,
+			"bucket_name":   bucketName,
+			"bucket_prefix": "logs/",
+			"days":          30,
 		},
 
 		// Variables to pass to our Terraform code using -var-file options
