@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - terraform/modules/s3-lifecycle/**
+      - .github/workflows/**
 
 jobs:
   validate:
