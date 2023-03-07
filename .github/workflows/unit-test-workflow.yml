@@ -51,7 +51,6 @@ jobs:
 
       - name: go mod tidy
         working-directory: ${{ inputs.working-directory }}/test
-      #  run: go test -v -tags=unit
         run: go mod tidy
 
       - name: Run Go Tests
