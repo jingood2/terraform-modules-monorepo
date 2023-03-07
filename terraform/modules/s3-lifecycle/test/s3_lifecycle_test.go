@@ -37,7 +37,7 @@ func TestS3LifecycleModule(t *testing.T) {
 
 	// Get the AWS region and account ID to find the S3 bucket
 	awsRegion := aws.GetRandomStableRegion(t, nil, nil)
-	awsAccountId := aws.GetAccountId(t)
+	//awsAccountId := aws.GetAccountId(t)
 
 	// Get the S3 bucket name from the Terraform output
 	s3BucketName := terraform.Output(t, terraformOptions, "s3_bucket_name")
