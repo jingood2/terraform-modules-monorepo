@@ -15,7 +15,7 @@ func TestS3LifecycleModule(t *testing.T) {
 	t.Parallel()
 
 	// Generate a random S3 bucket name to ensure uniqueness
-	bucketName := "my-bucket-" + random.UniqueId()
+	bucketName := "my-bucket-" + random.RandomInt()
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../examples/s3-lifecycle",
