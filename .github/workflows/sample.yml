@@ -9,7 +9,7 @@ on:
       - terraform/modules/sample/**
       - .github/workflows/**
 
-environment:
+env:
   MODULE_BASE_DIR: terraform/modules
   MODULE_NAME: sample
 
@@ -25,7 +25,7 @@ jobs:
         uses: dflook/terraform-validate@v1
         with:
           #path: terraform/modules/s3-lifecycle
-          path: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
+          path: $MODULE_BASE_DIR/$MODULE_NAME
 
   unit-test:
     needs:
@@ -33,7 +33,7 @@ jobs:
     uses: ./.github/workflows/aws.yml
     with:
       #working-directory: terraform/modules/s3-lifecycle
-      working-directory: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
+      working-directory: $MODULE_BASE_DIR/$MODULE_NAME
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -45,7 +45,7 @@ jobs:
     uses: terraform-docs/gh-actions@v1.0.0
     with:
       #working-dir: terraform/modules
-      working-dir: ${{ env.MODULE_BASE_DIR }}
+      working-dir: $MODULE_BASE_DIR
       recursive: true
       #recursive-path: s3-lifecycle
-      recursive-path: ${{ env.MODULE_NAME }}
+      recursive-path: $env.MODULE_NAME
