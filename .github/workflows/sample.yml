@@ -28,6 +28,7 @@ jobs:
           path: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
       
       - name: Generate TF docs
+        permissions: write-all
         uses: terraform-docs/gh-actions@v1.0.0
         with:
           working-dir: ${{ env.MODULE_BASE_DIR }}/
