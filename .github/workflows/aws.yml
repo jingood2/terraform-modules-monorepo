@@ -7,7 +7,7 @@ on:
       working-directory:
         required: true
         type: string
-        default: terraform/modules/s3-lifecycle
+        default: terraform/modules/sample
     secrets:
       AWS_ACCESS_KEY_ID:
         description: 'Specifies the AWS_CLIENT_ID.'
