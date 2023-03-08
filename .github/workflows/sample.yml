@@ -30,7 +30,7 @@ jobs:
   unit-test:
     needs:
       - validate
-    uses: ./.github/workflows/aws.yml
+    uses: .github/workflows/aws.yml
     with:
       working-directory: terraform/modules/sample
       #working-directory: $MODULE_BASE_DIR/$MODULE_NAME
