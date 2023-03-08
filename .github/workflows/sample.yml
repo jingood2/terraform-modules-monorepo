@@ -39,13 +39,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   
   generate-docs:
-    name: Generate TF Docs
     needs:
       - unit-test
     uses: terraform-docs/gh-actions@v1.0.0
     with:
-      working-dir: terraform/modules/
-      #working-dir: $MODULE_BASE_DIR
-      recursive: true
-      recursive-path: sample
+      find-dir: terraform/modules/sample/
       #recursive-path: $env.MODULE_NAME
