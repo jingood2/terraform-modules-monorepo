@@ -24,8 +24,15 @@ jobs:
       - name: terraform validate
         uses: dflook/terraform-validate@v1
         with:
-          path: terraform/modules/sample
-          #path: $MODULE_BASE_DIR/$MODULE_NAME
+          #path: terraform/modules/sample
+          path: $MODULE_BASE_DIR/$MODULE_NAME
+      
+      - name: Generate TF docs
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: $MODULE_BASE_DIR/
+          recursive: true
+          recursive-path: $MODULE_NAME
 
   unit-test:
     needs:
@@ -37,11 +44,3 @@ jobs:
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  
-  generate-docs:
-    needs:
-      - unit-test
-    uses: terraform-docs/gh-actions@v1.0.0
-    with:
-      find-dir: terraform/modules/sample/
-      #recursive-path: $env.MODULE_NAME
