@@ -41,9 +41,10 @@ jobs:
           # invalid character 'c' looking for beginning of value" issue when running on GitHub Action #779
           terraform_wrapper: false
           terraform_version: 1.3.7
-      #- uses: autero1/action-terraform@v0.1.0
-      #  with:
-      #    terraform_version: 0.12.21
+
+      # https://www.cloudwithchris.com/blog/githubactions-testsummary-go/
+      - name: Install go-junit-report
+        run: go install github.com/jstemmer/go-junit-report@latest
 
       - name: Download Go Modules
         working-directory: ${{ inputs.working-directory }}/test
@@ -55,7 +56,15 @@ jobs:
 
       - name: Run Go Tests
         working-directory: ${{ inputs.working-directory }}/test
-        run: go test -v -tags=unit
+        #run: go test -v -tags=unit
+        run : go test -v 2>&1 ./... | go-junit-report -set-exit-code > report.xml
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+      - name: Test Summary
+        uses: test-summary/action@v1
+        with:
+          paths: |
+                        ${{ inputs.working-directory }}/test/report.xml
+        if: always()

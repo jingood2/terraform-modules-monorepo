@@ -67,4 +67,5 @@ func TestS3LifecycleModule(t *testing.T) {
 	actualLifecyclePolicy := aws.GetS3BucketPolicy(t, awsRegion, s3BucketName)
 
 	assert.JSONEq(t, expectedLifecyclePolicy, actualLifecyclePolicy)
+
 }
