@@ -31,9 +31,9 @@ jobs:
       - name: Generate TF docs
         uses: terraform-docs/gh-actions@v1.0.0
         with:
-          working-dir: ${{ env.MODULE_BASE_DIR }}/
+          working-dir: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}
           recursive: true
-          recursive-path: ${{ env.MODULE_NAME }}
+          recursive-path: ./
           git-push: "true"
 
   unit-test:
