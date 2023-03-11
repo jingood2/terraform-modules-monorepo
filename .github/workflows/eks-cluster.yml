@@ -7,7 +7,7 @@ on:
       - feature/**
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
-      - terraform/modules/${{ MODULE_NAME }}/**
+      - terraform/modules/eks-cluster/**
       - .github/workflows/**
 
 env:
