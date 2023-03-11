@@ -7,12 +7,12 @@ on:
       - feature/**
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
-      - terraform/modules/eks-cluster/**
+      - terraform/modules/ec2-keypair/**
       - .github/workflows/**
 
 env:
   MODULE_BASE_DIR: terraform/modules
-  MODULE_NAME: eks-cluster
+  MODULE_NAME: ec2-keypair
 
 jobs:
   validate:
