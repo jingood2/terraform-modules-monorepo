@@ -43,7 +43,7 @@ jobs:
       - validate
     uses: ./.github/workflows/aws.yml
     with:
-      working-directory: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}
+      working-directory: terraform/modules/vpc-endpoints
       #working-directory: $MODULE_BASE_DIR/$MODULE_NAME
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
