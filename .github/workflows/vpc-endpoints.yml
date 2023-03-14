@@ -8,7 +8,7 @@ on:
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
       - terraform/modules/vpc-endpoints/**
-      - .github/workflows/**
+      - .github/workflows/vpc-endpoints.yml
 
 env:
   MODULE_BASE_DIR: terraform/modules

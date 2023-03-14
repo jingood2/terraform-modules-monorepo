@@ -3,11 +3,12 @@ name: sample terraform module terratest workflow
 on:
   push:
     branches:
-      - main
+      #- main
+      - feature/**
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
       - terraform/modules/sample/**
-      - .github/workflows/**
+      - .github/workflows/sample.yml
 
 env:
   MODULE_BASE_DIR: terraform/modules

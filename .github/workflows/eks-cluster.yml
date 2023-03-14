@@ -8,7 +8,7 @@ on:
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
       - terraform/modules/eks-cluster/**
-      - .github/workflows/**
+      - .github/workflows/eks-cluster.yml
 
 env:
   MODULE_BASE_DIR: terraform/modules

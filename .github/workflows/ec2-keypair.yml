@@ -8,7 +8,7 @@ on:
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
       - terraform/modules/ec2-keypair/**
-      - .github/workflows/**
+      - .github/workflows/ec2-keypair.yml
 
 env:
   MODULE_BASE_DIR: terraform/modules
