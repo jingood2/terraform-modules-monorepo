@@ -1,0 +1,50 @@
+name: sample terraform module terratest workflow
+
+on:
+  push:
+    branches:
+      #- main
+      - feature/**
+    paths:
+      # terraform/modules/<<MODULE_NAME>>/**
+      - terraform/modules/vpc-endpoints/**
+      - .github/workflows/**
+
+env:
+  MODULE_BASE_DIR: terraform/modules
+  MODULE_NAME: vpc-endpoints
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate terraform
+    permissions: write-all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: terraform validate
+        uses: dflook/terraform-validate@v1
+        with:
+          #path: terraform/modules/sample
+          path: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
+      
+      - name: Generate TF docs
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}},${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}/examples/${{env.MODULE_NAME}} 
+          #recursive: true
+          #recursive-path: ./
+          git-push: "true"
+          config-file: .terraform-docs.yml
+
+  unit-test:
+    needs:
+      - validate
+    uses: ./.github/workflows/aws.yml
+    with:
+      working-directory: terraform/modules/sample
+      #working-directory: $MODULE_BASE_DIR/$MODULE_NAME
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
