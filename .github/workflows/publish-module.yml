@@ -33,6 +33,7 @@ defaults:
 jobs:
   publish-tf-module:
     runs-on: ubuntu-latest
+    name: Run Go Unit Test
 
     steps:
       - name: Checkout Code
@@ -40,7 +41,7 @@ jobs:
       
       - name: Create Module Folder
         id: create_module
-        if: {{ inputs.ENABLE_CREATE_MODULE_FOLDER == 'true'}}
+        #if: {{ inputs.ENABLE_CREATE_MODULE_FOLDER == 'true'}}
         working-directory: ${{ inputs.WORKING_DIRECTORY }}
         uses: wei/curl@v1
         with:
