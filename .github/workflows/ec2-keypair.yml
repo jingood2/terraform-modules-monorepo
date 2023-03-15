@@ -43,8 +43,21 @@ jobs:
       - validate
     uses: ./.github/workflows/aws.yml
     with:
-      working-directory: terraform/modules/sample
-      #working-directory: $MODULE_BASE_DIR/$MODULE_NAME
+      working-directory: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
+  deployment:
+    needs:
+      - unit-test
+    uses: ./.github/workflows/publish-module.yml
+    with:
+      MODULE_NAME: ${{ env.MODULE_NAME }}
+      PROVIDER: aws
+      ENABLE_CREATE_MODULE_FOLDER: true
+      WORKING_DIRECTORY: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
+
+    secrets:
+      TF_ORGANIZATION: ${{ secrets.TF_ORGANIZATION }}
+      TERRAFORM_REGISTRY_TOKEN: ${{ secrets.TERRAFORM_REGISTRY_TOKEN }}
