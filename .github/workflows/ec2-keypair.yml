@@ -48,9 +48,9 @@ jobs:
       - uses: ./.github/workflows/aws.yml
         with:
           working-directory: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}
-        secrets:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          secrets:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   
   deployment:
     needs:
