@@ -55,7 +55,7 @@ jobs:
       - unit-test
     uses: ./.github/workflows/publish-module.yml
     with:
-      MODULE_NAME: ${{ env.MODULE_NAME }}
+      MODULE_NAME: $MODULE_NAME
       PROVIDER: aws
       ENABLE_CREATE_MODULE_FOLDER: true
       WORKING_DIRECTORY: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME }}
