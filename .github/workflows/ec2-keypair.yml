@@ -10,6 +10,7 @@ on:
       # terraform/modules/<<MODULE_NAME>>/**
       - terraform/modules/ec2-keypair/**
       - .github/workflows/ec2-keypair.yml
+      - .github/workflows/publish-module.yml
 
 env:
   MODULE_BASE_DIR: terraform/modules
