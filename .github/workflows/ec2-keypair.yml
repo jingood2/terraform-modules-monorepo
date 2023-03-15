@@ -45,7 +45,7 @@ jobs:
       - validate
     uses: ./.github/workflows/aws.yml
     with:
-      working-directory: '$MODULE_BASE_DIR/$MODULE_NAME'
+      working-directory: $MODULE_BASE_DIR/$MODULE_NAME
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -58,7 +58,7 @@ jobs:
       MODULE_NAME: $MODULE_NAME
       PROVIDER: aws
       ENABLE_CREATE_MODULE_FOLDER: true
-      WORKING_DIRECTORY: '$MODULE_BASE_DIR/$MODULE_NAME'
+      WORKING_DIRECTORY: $MODULE_BASE_DIR/$MODULE_NAME
 
     secrets:
       TF_ORGANIZATION: ${{ secrets.TF_ORGANIZATION }}
