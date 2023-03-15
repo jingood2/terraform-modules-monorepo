@@ -39,12 +39,14 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Create Module Folder
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
         id: create_module
         #if: {{ inputs.ENABLE_CREATE_MODULE_FOLDER == 'true'}}
         uses: wei/curl@v1
         with:
+          #-d '{ "data": { "type": "registry-modules", "attributes": { "name": "ec2-keypair", "provider": "aws", "registry-name": "private",  "no-code": true } } }'
           args: |
             -X POST "https://app.terraform.io/api/v2/organizations/jingood2/registry-modules"
             -H "Content-Type: application/vnd.api+json"
             -H "Authorization: Bearer zlHNd7bqcMSPmw.atlasv1.eMvzA0znxk0Q0yY177OCyZsoDoUAyeBoIbIYUMfUJ4fv6Y2xOyCFuITiqosgtE79zHA"
-            -d { "data": { "type": "registry-modules", "attributes": { "name": "ec2-keypair", "provider": "aws", "registry-name": "private",  "no-code": true } } }
+            -d @module.json
