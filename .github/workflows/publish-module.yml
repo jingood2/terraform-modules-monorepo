@@ -33,7 +33,6 @@ defaults:
 jobs:
   publish-tf-module:
     runs-on: ubuntu-latest
-    name: Run Go Unit Test
 
     steps:
       - name: Checkout Code
