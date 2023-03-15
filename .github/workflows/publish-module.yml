@@ -46,6 +46,6 @@ jobs:
         with:
           args: |
             -X POST "https://app.terraform.io/api/v2/organizations/jingood2/registry-modules"
-            -H "Content-Type: application/vnd.api+json"
+            -H "Content-Type: application/json"
             -H "Authorization: Bearer ${{ secrets.TERRAFORM_REGISTRY_TOKEN }}"
             -d '{"type": "registry-modules", "attributes": { "name": ${{ inputs.MODULE_NAME }}, "provider": ${{ inputs.PROVIDER }}, "registry-name": "private" }}'
