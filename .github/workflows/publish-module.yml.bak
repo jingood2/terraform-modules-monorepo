@@ -1,0 +1,91 @@
+name: Publish Terraform module on Terraform Cloud
+
+on:
+  workflow_call:
+    inputs:
+      ENABLE_CREATE_MODULE_FOLDER:
+        required: false
+        type: string
+        default: false
+      WORKING_DIRECTORY:
+        required: true
+        type: string
+      # workding-directory is added to specify terraform module direcotry in project source
+      MODULE_NAME:
+        required: true
+        type: string
+      PROVIDER:
+        required: false
+        type: string
+        default: "aws"
+    secrets:
+      TF_ORGANIZATION:
+        description: 'Terraform Organization'
+        required: true
+      TERRAFORM_REGISTRY_TOKEN:
+        description: 'Terraform Registry Token'
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  publish-tf-module:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
+      - name: Create Module Folder
+        id: create_module
+        if: {{ inputs.ENABLE_CREATE_MODULE_FOLDER == 'true'}}
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        uses: wei/curl@v1
+        with:
+          args: |
+            --request POST
+            --url "https://app.terraform.io/api/v2/organizations/${{ secrets.TF_ORGANIZATION }}/registry-modules"
+            —-header "Content-Type: application/vnd.api+json"
+            —-header "Authorization: Bearer ${{ secrets.TERRAFORM_REGISTRY_TOKEN }}"
+            —-data '{"type": "registry-modules", "attributes": { "name": ${{ inputs.MODULE_NAME }}, "provider": ${{ inputs.PROVIDER }}, "registry-name": "private" }}'
+      
+      - name: Create Module Response
+        run: echo "Response: ${{ steps.create_module.outputs.data }}"
+
+      - name: Create Module Upload Url
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        id: create_module_url
+        uses: wei/curl@v1
+        with:
+          args: |
+            --request POST
+            --url "https://app.terraform.io/api/v2/organizations/${{ secrets.TF_ORGANIZATION }}/registry-modules/private/${{secrets.TF_ORGANIZATION}}/${{inputs.MODULE_NAME}}/${{inputs.PROVIDER}}/versions"
+            —-header "Content-Type: application/vnd.api+json"
+            —-header "Authorization: Bearer ${{ secrets.TERRAFORM_REGISTRY_TOKEN }}"
+            —-data @version.json
+      
+      - name: Export Environment Upload link
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        run: |
+          echo "::set-env name=ENV_VAR_PUSH_URL::${{steps.create_module_url.outputs.data.links.upload}}"
+          echo "Exported Environment Variable"
+      
+      - name: Zipping module
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        run: tar cvfz module.tar.gz .
+      
+      - name: Put request to register module
+        id: put_request_module
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        uses: wei/curl@v1
+        with:
+          args: |
+            --request PUT
+            --url $ENV_VAR_PUSH_URL
+            —-header “Content-Type: application/vnd.api+json”
+            --data-binary @module.tar.gz 
+      
+      - name: Put Response
+        run: echo "Response: ${{ steps.put_request_module.outputs.data }}"
