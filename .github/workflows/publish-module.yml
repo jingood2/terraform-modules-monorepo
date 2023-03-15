@@ -41,12 +41,10 @@ jobs:
       - name: Create Module Folder
         id: create_module
         #if: {{ inputs.ENABLE_CREATE_MODULE_FOLDER == 'true'}}
-        working-directory: ${{ inputs.WORKING_DIRECTORY }}
         uses: wei/curl@v1
         with:
-          #-d '{"type": "registry-modules", "attributes": { "name": ${{ inputs.MODULE_NAME }}, "provider": ${{ inputs.PROVIDER }}, "registry-name": "private" }}'
           args: |
             -X POST "https://app.terraform.io/api/v2/organizations/jingood2/registry-modules"
             -H "Content-Type: application/vnd.api+json"
             -H "Authorization: Bearer ${{ secrets.TERRAFORM_REGISTRY_TOKEN }}"
-            -d @module.json
+            -d '{ "data": { "type": "registry-modules", "attributes": { "name": ${{ inputs.MODULE_NAME }}, "provider": ${{ inputs.PROVIDER }}, "registry-name": "private" } } }'
