@@ -1,0 +1,10 @@
+{
+  "data": {
+    "type": "registry-modules",
+    "attributes": {
+      "name": "ec2-keypair",
+      "provider": "aws",
+      "registry-name": "private"
+    }
+  }
+}
