@@ -5,6 +5,7 @@ on:
     branches:
       #- main
       - feature/**
+      - chore/**
     paths:
       # terraform/modules/<<MODULE_NAME>>/**
       - terraform/modules/ec2-keypair/**
