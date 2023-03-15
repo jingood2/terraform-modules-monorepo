@@ -41,7 +41,7 @@ jobs:
       - name: Create Module Folder
         id: create_module
         #if: {{ inputs.ENABLE_CREATE_MODULE_FOLDER == 'true'}}
-        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        #working-directory: ${{ inputs.WORKING_DIRECTORY }}
         uses: wei/curl@v1
         with:
           args: |
