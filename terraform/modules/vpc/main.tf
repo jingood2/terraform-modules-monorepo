@@ -3,6 +3,7 @@ module "vpc" {
 
   name                    = "${local.name}-${var.vpc_name}"
   cidr                    = var.vpc_cidr_block
+  secondary_cidr_blocks   = var.secondary_cidr_blocks
   azs                     = var.vpc_availability_zones
 
   map_public_ip_on_launch = false
