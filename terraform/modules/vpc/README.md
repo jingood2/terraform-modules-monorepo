@@ -17,6 +17,7 @@ No providers.
 | <a name="input_customer_gateways"></a> [customer\_gateways](#input\_customer\_gateways) | A map of customer gateway | `any` | `{}` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment Variable used as a prefix | `string` | `"dev"` | no |
 | <a name="input_project"></a> [project](#input\_project) | Project in the large organization this Infrastructure belongs | `string` | `"poc"` | no |
+| <a name="input_secondary_cidr_blocks"></a> [secondary\_cidr\_blocks](#input\_secondary\_cidr\_blocks) | VPC Secondary CIDR Block | `list(string)` | `[]` | no |
 | <a name="input_vpc_availability_zones"></a> [vpc\_availability\_zones](#input\_vpc\_availability\_zones) | VPC Availability Zones | `list(string)` | <pre>[<br>  "us-east-1a",<br>  "us-east-1c"<br>]</pre> | no |
 | <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | VPC CIDR Block | `string` | `"10.0.0.0/16"` | no |
 | <a name="input_vpc_create_database_subnet_group"></a> [vpc\_create\_database\_subnet\_group](#input\_vpc\_create\_database\_subnet\_group) | VPC Create Database Subnet Group | `bool` | `false` | no |

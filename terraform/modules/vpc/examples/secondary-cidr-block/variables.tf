@@ -36,7 +36,7 @@ variable "vpc_cidr_block" {
 }
 
 variable "secondary_cidr_blocks" {
-  description = "VPC Secondary CIDR Block"
+  description = "Secondary VPC CIDR Block"
   type        = list(string)
   default     = []
 }
