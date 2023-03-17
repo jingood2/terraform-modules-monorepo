@@ -34,7 +34,7 @@ jobs:
         uses: terraform-docs/gh-actions@v1.0.0
         with:
           #block ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}/examples/${{env.MODULE_NAME}} 
-          working-dir: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}
+          working-dir: ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}, ${{ env.MODULE_BASE_DIR }}/${{ env.MODULE_NAME}}/examples 
           #recursive: true
           #recursive-path: ./
           git-push: "true"
