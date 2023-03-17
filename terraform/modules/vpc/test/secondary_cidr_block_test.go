@@ -10,7 +10,7 @@ import (
 )
 
 // This function is a test function for the VPC module
-func SecondaryCidrBlockTest(t *testing.T) {
+func TestSecondaryCidrBlock(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := &terraform.Options{
