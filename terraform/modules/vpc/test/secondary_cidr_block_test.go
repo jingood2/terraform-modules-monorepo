@@ -10,11 +10,11 @@ import (
 )
 
 // This function is a test function for the VPC module
-func TestVpc(t *testing.T) {
+func SecondaryCidrBlockTest(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../examples/vpc",
+		TerraformDir: "../examples/secondary-cidr-block",
 		VarFiles:     []string{"varfile.auto.tfvars"},
 	}
 
