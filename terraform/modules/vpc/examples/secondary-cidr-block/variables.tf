@@ -38,7 +38,7 @@ variable "vpc_cidr_block" {
 variable "secondary_cidr_blocks" {
   description = "Secondary VPC CIDR Block"
   type        = string
-  default     = ["100.64.0.0/16"]
+  default     = []
 }
 
 # VPC Availability Zones
